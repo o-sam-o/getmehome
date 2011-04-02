@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'active_support/core_ext/object'
+require 'active_support/core_ext/hash/indifferent_access.rb'
 
 def parse_options(doc, select_selector)
   doc.css("#{select_selector} option").inject({}) do |result, option| 
@@ -73,15 +74,15 @@ if doc.at_css('select#from')
   
   from_select = doc.at_css('select#from')
   unless from_select['name'].blank?
-    p "Changing origin to #{from_options.first[1]}"
+    p "Changing origin to #{from_options.first}"
     request_params.delete(:itd_name_origin)
     request_params[from_select['name']] = from_options.first[1]
   end
   to_select = doc.at_css('select#to')
   unless to_select['name'].blank?
-    #p "Changing destination to #{to_select["George St, Sydney"][1]}"
+    p "Changing destination to #{to_options.first}"
     request_params.delete(:itd_name_destination)
-    request_params[to_select['name']] = 'stateless:streetID:34::95301001'
+    request_params[to_select['name']] = to_options.first[1]
   end
 
   doc = get_request(request_params)
