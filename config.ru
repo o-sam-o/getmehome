@@ -1,0 +1,13 @@
+require 'rubygems'
+require 'bundler'
+
+Bundler.require
+
+require 'json'
+require 'nokogiri'
+require 'active_support/core_ext/object'
+require 'active_support/core_ext/hash/indifferent_access.rb'
+
+require './sydney_trip_planner_source'
+require './get_me_home'
+run Sinatra::Application
