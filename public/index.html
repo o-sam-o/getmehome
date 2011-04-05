@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Get Me Home</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.css" />  
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script type="text/javascript" src="javascript/getmehome.js"></script>
+  </head>
+  <body>
+
+    <div id="home-page" data-role="page">
+
+      <div data-role="header">
+        <h1>Get Me Home</h1>
+      </div>
+
+      <div data-role="content">	
+        <form action="/trip" method="get" id="trip-form" data-ajax="false">
+          <label for="from">From:</label>
+          <input name="from" type="text"/>
+
+          <label for="to">To:</label>
+          <input name="to" type="text"/>
+
+          <input type="submit" id="get-me-home-button" value="Get Me Home"/>
+        </form>
+      </div>
+
+      <div data-role="footer">
+        <h4>Page Footer</h4>
+      </div>
+    </div>
+
+  <div data-role="page" id="trips-page">
+
+    <div data-role="header">
+      <h1>Take Me Home</h1>
+    </div>
+
+    <div data-role="content">
+      <ul id="trips-list" data-role="listview">
+      </ul>
+    </div>
+
+  </div>
+
+
+  </body>
+</html>
+

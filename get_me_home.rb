@@ -1,4 +1,5 @@
 get '/trip' do
+  content_type 'application/json'
   begin
     {
       status: "success",

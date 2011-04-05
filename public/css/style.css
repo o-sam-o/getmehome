@@ -1,0 +1,14 @@
+#trip-form label {
+  display: block;
+  padding-bottom: 3px;
+}
+
+#trip-form input[type=text] {
+  width: 100%;
+  display: block;
+  padding: 0 5px 5px 0;
+}
+
+.field-container {
+  padding-bottom: 5px;
+}

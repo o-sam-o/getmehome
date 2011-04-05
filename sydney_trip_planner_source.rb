@@ -8,11 +8,12 @@ class SydneyTripPlannerSource
     doc = get_request(request_params)
 
     # Handle confirmation of origin or destination
-    if doc.at_css('select#from')
+    if doc.at_css('select#from') && doc.at_css('select#to')
       from_options = parse_options(doc, 'select#from')
       to_options = parse_options(doc, 'select#to')
 
       from_select = doc.at_css('select#from')
+
       unless from_select['name'].blank?
         request_params.delete(:itd_name_origin)
         origin = from_options.first[1]
@@ -44,7 +45,7 @@ class SydneyTripPlannerSource
     end
 
     return {
-      trip: results,
+      trips: results,
       origin: origin,
       origins: from_options,
       destination: destination,
