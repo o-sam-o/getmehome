@@ -5,6 +5,7 @@ Bundler.require
 
 require 'json'
 require 'nokogiri'
+require 'open-uri'
 require 'active_support/core_ext/object'
 require 'active_support/core_ext/hash/indifferent_access.rb'
 

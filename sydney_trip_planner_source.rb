@@ -1,11 +1,8 @@
-require 'nokogiri'
-require 'open-uri'
-require 'active_support/core_ext/object'
-require 'active_support/core_ext/hash/indifferent_access.rb'
-
 class SydneyTripPlannerSource
 
   def find_trips(origin, destination)
+    from_options = [{origin => origin}]
+    to_options = [{destination => destination}]
     request_params = request_params(origin, destination)
 
     doc = get_request(request_params)
@@ -18,33 +15,41 @@ class SydneyTripPlannerSource
       from_select = doc.at_css('select#from')
       unless from_select['name'].blank?
         request_params.delete(:itd_name_origin)
-        request_params[from_select['name']] = from_options.first[1]
+        origin = from_options.first[1]
+        request_params[from_select['name']] = origin
       end
       to_select = doc.at_css('select#to')
       unless to_select['name'].blank?
         request_params.delete(:itd_name_destination)
-        request_params[to_select['name']] = to_options.first[1]
+        destination = to_options.first[1]
+        request_params[to_select['name']] = destination
       end
 
       doc = get_request(request_params)
     end
 
     result_table = doc.at_css('.dataTbl')
-    raise 'Unable to find result table' unless result_table
+    raise TripSourceException.new('No results found', :no_results) unless result_table
 
     results = []
     result_table.css('tbody tr').each do |row|
       results << {
-                :trip_number => row.at_css('td:nth-child(1)').content.strip,
-                :depart => row.at_css('td:nth-child(2)').content.strip,
-                :arrive => row.at_css('td:nth-child(3)').content.strip,
-                :travel_time => row.at_css('td:nth-child(4)').content.strip,
-                :transport_type => transport_type(row.at_css('td:nth-child(5)')),
-                #:view_url => row.at_css('td:nth-child(6) a')['href']
+                trip_number: row.at_css('td:nth-child(1)').content.strip,
+                depart: row.at_css('td:nth-child(2)').content.strip,
+                arrive: row.at_css('td:nth-child(3)').content.strip,
+                travel_time: row.at_css('td:nth-child(4)').content.strip,
+                transport_type: transport_type(row.at_css('td:nth-child(5)')),
+                #view_url: row.at_css('td:nth-child(6) a')['href']
       }
     end
 
-    return results, from_options, to_options
+    return {
+      trip: results,
+      origin: origin,
+      origins: from_options,
+      destination: destination,
+      destitions: to_options
+    }
   end
 
 
@@ -84,7 +89,7 @@ private
   def get_request(request_params)
     url = "http://www.131500.com.au/plan-your-trip/trip-planner?" + request_params.collect { |k,v| URI.escape("#{k}=#{v}") }.join('&')
     doc = Nokogiri::HTML(open(url))
-    raise "Error: #{doc.at_css('.error').content}" if doc.at_css('.error')
+    raise TripSourceException.new(doc.at_css('.error').content, :request_failure) if doc.at_css('.error')
     return doc
   end
 
@@ -94,3 +99,10 @@ private
 
 end
 
+class TripSourceException < Exception
+  attr_reader :code
+  def initialize(message, code)
+    super(message)
+    @code = code
+  end
+end
