@@ -1,4 +1,48 @@
-<div id="home-page" data-role="page">
+<div id="welcome-page" data-role="page">
+
+  <div data-role="content">	
+    <div id="welcome-text" class="triangle-border">
+      <p><strong>Welcome</strong> to Get Me Home,</p>
+      This is a simple mobile website that finds the quickest way for you to get home.
+      Enter your address below, and then with the help of GPS in your phone
+      I'll find out when your next bus, train or ferry leaves.
+    </div>
+
+    <div class="character left-bubble"></div>
+
+      <form id="address-form" data-ajax="false" class="triangle-border top">
+        <label for="address">Your address:</label>
+        <input name="address" type="text"/>
+
+        <input type="submit" id="enter-address-button" value="Save Address"/>
+      </form>
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
+<div id="landing-page" data-role="page">
+
+  {{> page_header}}
+
+  <div data-role="content">	
+    <div id="landing-text" class="triangle-border">
+      <p>So you want to going to <span class="home-address"></span>?</p>
+      <span class="current-lat-log-location"></span>
+    </div>
+    <div class="character left-bubble"></div>
+
+    <form data-ajax="false">
+      <input type="submit" id="get-me-home-button" value="Get Me Home!"/>
+    </form>
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
+<div id="form-page" data-role="page">
 
   {{> page_header}}
 
@@ -10,7 +54,7 @@
       <label for="to">To:</label>
       <input name="to" type="text"/>
 
-      <input type="submit" id="get-me-home-button" value="Get Me Home"/>
+      <input type="submit" id="get-me-home-form-button" value="Get Me Home"/>
     </form>
   </div>
 

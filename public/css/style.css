@@ -1,3 +1,4 @@
+/* ---- DELETE? */
 #trip-form label {
   display: block;
   padding-bottom: 3px;
@@ -11,4 +12,97 @@
 
 .field-container {
   padding-bottom: 5px;
+}
+/* ---- END DELETE? */
+
+#welcome-text {
+  text-align: justify;
+  margin: 0 0 1em;
+}
+
+#welcome-text p {
+  margin: 0;
+  padding-bottom: 4px;
+}
+
+#landing-text p {
+  margin: 0;
+}
+
+.character {
+  height: 48px;
+  width: 48px;
+  background: url('images/scientist_48.png') no-repeat right top;
+}
+
+.character.left-bubble {
+  margin-left: 41px;
+}
+
+
+/* THE SPEECH BUBBLE from http://nicolasgallagher.com/pure-css-speech-bubbles/demo/default.css
+------------------------------------------------------------------------------------------------------------------------------- */
+
+.triangle-border {
+  position:relative;
+  padding:15px;
+  margin:1em 0 1em;
+  border:5px solid #5a8f00;
+  color:#333;
+  background:#fff;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+
+/* THE TRIANGLE
+------------------------------------------------------------------------------------------------------------------------------- */
+
+.triangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  left:40px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:#5a8f00 transparent;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  left:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:#fff transparent;
+  /* reduce the damage in FF3.0 */
+  display:block; 
+  width:0;
+}
+
+/* Variant : top
+------------------------------------------ */
+
+/* creates the larger triangle */
+.triangle-border.top:before {
+  top:-20px; /* value = - border-top-width - border-bottom-width */
+  bottom:auto;
+  right:auto;
+  left:40px; /* controls horizontal position */
+  border-width:0 20px 20px;
+}
+
+/* creates the smaller  triangle */
+.triangle-border.top:after {
+  top:-13px; /* value = - border-top-width - border-bottom-width */
+  bottom:auto;
+  right:auto;
+  left:47px; /* value = (:before right) + (:before border-right) - (:after border-right) */
+  border-width:0 13px 13px;
 }

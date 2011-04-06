@@ -2,10 +2,13 @@ GEM
   remote: http://rubygems.org/
   specs:
     activesupport (3.0.5)
+    geokit (1.5.0)
     i18n (0.5.0)
     mustache (0.99.3)
     nokogiri (1.4.4)
     rack (1.2.2)
+    shotgun (0.9)
+      rack (>= 1.0)
     sinatra (1.2.1)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
@@ -16,7 +19,9 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 3.0.5)
+  geokit (~> 1.5.0)
   i18n (~> 0.5.0)
   mustache (~> 0.99.3)
   nokogiri (= 1.4.4)
+  shotgun
   sinatra (~> 1.2.1)
