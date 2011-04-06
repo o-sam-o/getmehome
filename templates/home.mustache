@@ -1,0 +1,32 @@
+<div id="home-page" data-role="page">
+
+  {{> page_header}}
+
+  <div data-role="content">	
+    <form action="/trip" method="get" id="trip-form" data-ajax="false">
+      <label for="from">From:</label>
+      <input name="from" type="text"/>
+
+      <label for="to">To:</label>
+      <input name="to" type="text"/>
+
+      <input type="submit" id="get-me-home-button" value="Get Me Home"/>
+    </form>
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
+<div data-role="page" id="trips-page">
+
+  {{> page_header}}
+
+  <div data-role="content">
+    <ul id="trips-list" data-role="listview">
+    </ul>
+  </div>
+
+  {{> page_footer}}
+
+</div>

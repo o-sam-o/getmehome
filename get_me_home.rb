@@ -1,3 +1,12 @@
+set :mustache, {
+  :views     => './views',
+  :templates => './templates'
+}
+
+get '/' do
+  mustache :home
+end
+
 get '/trip' do
   content_type 'application/json'
   begin
