@@ -1,6 +1,6 @@
 <div id="welcome-page" data-role="page">
 
-  <div data-role="content">	
+  <div data-role="content" class="content">
     <div id="welcome-text" class="triangle-border">
       <p><strong>Welcome</strong> to Get Me Home,</p>
       This is a simple mobile website that finds the quickest way for you to get home.
@@ -26,7 +26,7 @@
 
   {{> page_header}}
 
-  <div data-role="content">	
+  <div data-role="content" class="content">
     <div id="landing-text" class="triangle-border">
       <p>So you want to going to <span class="home-address"></span>?</p>
       <span class="current-lat-log-location"></span>
@@ -42,35 +42,18 @@
 
 </div>
 
-<div id="form-page" data-role="page">
-
-  {{> page_header}}
-
-  <div data-role="content">	
-    <form action="/trip" method="get" id="trip-form" data-ajax="false">
-      <label for="from">From:</label>
-      <input name="from" type="text"/>
-
-      <label for="to">To:</label>
-      <input name="to" type="text"/>
-
-      <input type="submit" id="get-me-home-form-button" value="Get Me Home"/>
-    </form>
-  </div>
-
-  {{> page_footer}}
-
-</div>
-
 <div data-role="page" id="trips-page">
 
   {{> page_header}}
 
-  <div data-role="content">
-    <ul id="trips-list" data-role="listview">
-    </ul>
+  <div data-role="content" class="content">
+
   </div>
 
   {{> page_footer}}
 
 </div>
+
+<script id="trip-template" type="text/html">
+  {{{raw_trips_template}}}
+</script>

@@ -23,6 +23,7 @@ get '/trip' do
       status: "success",
       data: SydneyTripPlannerSource.new.find_trips(origin, destination)
     }.to_json
+
   rescue TripSourceException => e
     halt 417, {
       status: "fail",

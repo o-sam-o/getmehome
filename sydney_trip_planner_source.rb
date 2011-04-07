@@ -1,28 +1,29 @@
 class SydneyTripPlannerSource
 
   def find_trips(origin, destination)
-    from_options = [{origin => origin}]
-    to_options = [{destination => destination}]
+    origin_options, destination_options = nil
     request_params = request_params(origin, destination)
 
     doc = get_request(request_params)
 
     # Handle confirmation of origin or destination
     if doc.at_css('select#from') && doc.at_css('select#to')
-      from_options = parse_options(doc, 'select#from')
-      to_options = parse_options(doc, 'select#to')
+      origin_options = parse_options(doc, 'select#from')
+      destination_options = parse_options(doc, 'select#to')
 
       from_select = doc.at_css('select#from')
-
       unless from_select['name'].blank?
         request_params.delete(:itd_name_origin)
-        origin = from_options.first[1]
+        origin_name = origin_options.first[0]
+        origin = origin_options.first[1]
         request_params[from_select['name']] = origin
       end
+
       to_select = doc.at_css('select#to')
       unless to_select['name'].blank?
         request_params.delete(:itd_name_destination)
-        destination = to_options.first[1]
+        destination_name = destination_options.first[0]
+        destination = destination_options.first[1]
         request_params[to_select['name']] = destination
       end
 
@@ -35,26 +36,38 @@ class SydneyTripPlannerSource
     results = []
     result_table.css('tbody tr').each do |row|
       results << {
-                trip_number: row.at_css('td:nth-child(1)').content.strip,
+                tripNumber: row.at_css('td:nth-child(1)').content.strip,
                 depart: row.at_css('td:nth-child(2)').content.strip,
                 arrive: row.at_css('td:nth-child(3)').content.strip,
-                travel_time: row.at_css('td:nth-child(4)').content.strip,
-                transport_type: transport_type(row.at_css('td:nth-child(5)')),
+                travelTime: row.at_css('td:nth-child(4)').content.strip,
+                transportType: transport_type(row.at_css('td:nth-child(5)')),
                 #view_url: row.at_css('td:nth-child(6) a')['href']
       }
     end
 
     return {
       trips: results,
-      origin: origin,
-      origins: from_options,
-      destination: destination,
-      destitions: to_options
+      origin: {
+        name: origin_name || origin,
+        id:   origin,
+        others: other_options_count(origin_options) == 1 ? nil : origin_options,
+        othersCount: other_options_count(origin_options)
+      },
+      destination: {
+        name: destination_name || destination,
+        id:   destination,
+        others: other_options_count(destination_options) == 1 ? nil : destination_options,
+        othersCount: other_options_count(destination_options)
+      },
     }
   end
 
 
 private
+
+  def other_options_count(options)
+    options.try(:size) || 1
+  end
 
   def request_params(origin, destination)
     request_params = {}

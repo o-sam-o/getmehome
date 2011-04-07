@@ -1,0 +1,23 @@
+{{#origin}}
+  <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+    <li data-role="list-divider">From</li>
+    <li>
+      <a href="#change-origin-page"> {{name}} </a>
+      <span class="ui-li-count"> {{othersCount}} </span>
+    </li>
+  </ul>
+{{/origin}}
+
+{{#destination}}
+  <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+    <li data-role="list-divider">To</li>
+    <li>
+        <a href="#change-destination-page"> {{name}} </a>
+        <span class="ui-li-count"> {{othersCount}} </span>
+    </li>
+  </ul>
+{{/destination}}
+
+<ul id="trips-list" data-role="listview">
+ {{#trips}}<li>{{depart}}</li>{{/trips}}
+</ul>
