@@ -1,7 +1,8 @@
 class SydneyTripPlannerSource
 
   def find_trips(origin, destination)
-    origin_options, destination_options = nil
+    origin_options = {origin => origin}
+    destination_options = {destination => destination}
     request_params = request_params(origin, destination)
 
     doc = get_request(request_params)
@@ -41,7 +42,7 @@ class SydneyTripPlannerSource
                 arrive: row.at_css('td:nth-child(3)').content.strip,
                 travelTime: row.at_css('td:nth-child(4)').content.strip,
                 transportType: transport_type(row.at_css('td:nth-child(5)')),
-                #view_url: row.at_css('td:nth-child(6) a')['href']
+                viewUrl: row.at_css('td:nth-child(6) a')['href']
       }
     end
 
@@ -50,24 +51,20 @@ class SydneyTripPlannerSource
       origin: {
         name: origin_name || origin,
         id:   origin,
-        others: other_options_count(origin_options) == 1 ? nil : origin_options,
-        othersCount: other_options_count(origin_options)
+        others: origin_options,
+        othersCount: origin_options.try(:size) || 1
       },
       destination: {
         name: destination_name || destination,
         id:   destination,
-        others: other_options_count(destination_options) == 1 ? nil : destination_options,
-        othersCount: other_options_count(destination_options)
+        others: destination_options,
+        othersCount: destination_options.try(:size) || 1
       },
     }
   end
 
 
 private
-
-  def other_options_count(options)
-    options.try(:size) || 1
-  end
 
   def request_params(origin, destination)
     request_params = {}

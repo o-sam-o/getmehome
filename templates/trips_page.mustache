@@ -22,7 +22,7 @@
  <li data-role="list-divider">Transport Options</li>
   {{#trips}}
     <li>
-      <a href="#view-trip-{{tripNumber}}">
+      <a href="{{viewUrl}}">
         <p><time>{{depart}}</time> - <time>{{arrive}}</time></strong> ({{travelTime}})</p>
         {{#transportType}}<div class="transport-icon {{.}}"></div>{{/transportType}}
       </a>
