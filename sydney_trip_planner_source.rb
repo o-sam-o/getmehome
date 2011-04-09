@@ -69,7 +69,7 @@ private
     request_params = {}
     request_params[:itd_name_origin] = origin
     request_params[:itd_name_destination] = destination
-    departure_time = DateTime.now
+    departure_time = DateTime.now.in_time_zone("Sydney")
     request_params[:itd_itdDate] = departure_time.strftime('%Y%m%d')
     request_params[:itd_itdTripDateTimeDepArr] = 'dep'
 
