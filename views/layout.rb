@@ -1,7 +1,7 @@
 module Views
   class Layout < Mustache
     def title 
-      @title || "Take Me Home"
+      @title || "Get Me Home"
     end
   end
 end
