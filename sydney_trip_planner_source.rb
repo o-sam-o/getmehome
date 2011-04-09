@@ -1,8 +1,6 @@
 class SydneyTripPlannerSource
 
   def find_trips(origin, destination)
-    origin_options = {origin => origin}
-    destination_options = {destination => destination}
     request_params = request_params(origin, destination)
 
     doc = get_request(request_params)
@@ -15,7 +13,6 @@ class SydneyTripPlannerSource
       from_select = doc.at_css('select#from')
       unless from_select['name'].blank?
         request_params.delete(:itd_name_origin)
-        origin_name = origin_options.first[0]
         origin = origin_options.first[1]
         request_params[from_select['name']] = origin
       end
@@ -23,7 +20,6 @@ class SydneyTripPlannerSource
       to_select = doc.at_css('select#to')
       unless to_select['name'].blank?
         request_params.delete(:itd_name_destination)
-        destination_name = destination_options.first[0]
         destination = destination_options.first[1]
         request_params[to_select['name']] = destination
       end
@@ -33,6 +29,9 @@ class SydneyTripPlannerSource
 
     result_table = doc.at_css('.dataTbl')
     raise TripSourceException.new('No results found', :no_results) unless result_table
+
+    origin_name = doc.css('.fe_rd_srchval')[0].content.strip
+    destination_name = doc.css('.fe_rd_srchval')[1].content.strip
 
     results = []
     result_table.css('tbody tr').each do |row|
@@ -49,15 +48,15 @@ class SydneyTripPlannerSource
     return {
       trips: results,
       origin: {
-        name: origin_name || origin,
+        name: origin_name,
         id:   origin,
-        others: origin_options,
+        others: origin_options || {origin_name => origin_name},
         othersCount: origin_options.try(:size) || 1
       },
       destination: {
-        name: destination_name || destination,
+        name: destination_name,
         id:   destination,
-        others: destination_options,
+        others: destination_options || {destination_name => destination_name},
         othersCount: destination_options.try(:size) || 1
       },
     }
