@@ -18,6 +18,14 @@
   </ul>
 {{/destination}}
 
-<ul id="trips-list" data-role="listview">
- {{#trips}}<li>{{depart}}</li>{{/trips}}
+<ul id="trips-list" data-role="listview" data-inset="true">
+ <li data-role="list-divider">Transport Options</li>
+  {{#trips}}
+    <li>
+      <a href="#view-trip-{{tripNumber}}">
+        <p><time>{{depart}}</time> - <time>{{arrive}}</time></strong> ({{travelTime}})</p>
+        {{#transportType}}<div class="transport-icon {{.}}"></div>{{/transportType}}
+      </a>
+    </li>
+  {{/trips}}
 </ul>

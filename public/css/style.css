@@ -1,19 +1,6 @@
-/* ---- DELETE? */
-#trip-form label {
-  display: block;
-  padding-bottom: 3px;
+.content {
+  min-height: 310px;
 }
-
-#trip-form input[type=text] {
-  width: 100%;
-  display: block;
-  padding: 0 5px 5px 0;
-}
-
-.field-container {
-  padding-bottom: 5px;
-}
-/* ---- END DELETE? */
 
 #welcome-text {
   text-align: justify;
@@ -39,6 +26,52 @@
   margin-left: 41px;
 }
 
+#trips-list p {
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+#trips-list time {
+  font-weight: bold;
+}
+
+.transport-icon {
+  float: left;
+  width: 37px;
+  height: 32px;
+}
+
+.bus {
+  background: url('images/bus_32.png') no-repeat right top;
+}
+
+.train {
+  background: url('images/train_32.png') no-repeat right top;
+}
+
+.ferry {
+  background: url('images/ship_32.png') no-repeat right top;
+}
+
+.walk {
+  background: url('images/walk_32.png') no-repeat right top;
+}
+
+#about-page-link {
+  width: 20px;
+  height: 20px;
+  margin: 5px 0;
+}
+
+.ui-footer a {
+  top:0.15em;
+  float: right;
+  margin: 4px 10px!important;
+}
+
+#get-me-home-icon {
+  background: url('images/location_20_inverted.png') no-repeat center center;
+}
 
 /* THE SPEECH BUBBLE from http://nicolasgallagher.com/pure-css-speech-bubbles/demo/default.css
 ------------------------------------------------------------------------------------------------------------------------------- */
