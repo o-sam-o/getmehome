@@ -19,9 +19,7 @@ $(document).ready(function() {
       return;
     }
 
-    $.cookie('gmh-address', address, { path: '/', expires: 365 });
-    // TODO find a way to do this before page switch occurs
-    $('.home-address').html(address);
+    saveAddressToCookie(address);
     $.mobile.changePage($('#landing-page'));
   });
 });
@@ -48,7 +46,7 @@ function getMeHome(){
 
 function selectedOtherLocation(){
   $.mobile.pageLoading();
-
+  saveAddressToCookie($('input:radio[name=destination-radio]:checked').val());
   // TODO add error handling
   $.ajax({
     url: '/trip',
@@ -66,4 +64,9 @@ function populateTripsPage(data){
   $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data)).page();
   $('#change-origin-page .content').html(Mustache.to_html($('#other-location-template').html(), data.origin)).page();
   $('#change-destination-page .content').html(Mustache.to_html($('#other-location-template').html(), data.destination)).page();
+}
+
+function saveAddressToCookie(address) {
+  $.cookie('gmh-address', address, { path: '/', expires: 365 });
+  $('.home-address').html(address);
 }
