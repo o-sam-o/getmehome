@@ -60,10 +60,17 @@ function selectedOtherLocation(){
 }
 
 function populateTripsPage(data){
-  // Note : Need to do .page or jQuery Mobile doesn't work
-  $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data)).page();
-  $('#change-origin-page .content').html(Mustache.to_html($('#other-location-template').html(), data.origin)).page();
-  $('#change-destination-page .content').html(Mustache.to_html($('#other-location-template').html(), data.destination)).page();
+  updatePageContents('#trips-page', '#trip-template', data);
+  updatePageContents('#change-origin-page', '#other-location-template', data.origin);
+  updatePageContents('#change-destination-page', '#other-location-template', data.destination);
+}
+
+function updatePageContents(pageId, templateId, data){
+  // Note: we have to create a dummy container div as you can only call
+  // .page() once per element
+  var newContent = $('<div></div>');
+  newContent.html(Mustache.to_html($(templateId).html(), data)).page();
+  $(pageId + ' .content').html(newContent);
 }
 
 function saveAddressToCookie(address) {
