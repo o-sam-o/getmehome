@@ -1,18 +1,19 @@
 <div data-role="fieldcontain">
-    <fieldset data-role="controlgroup">
-      <legend>Change {{type}}:</legend>
+  <h3>Change {{type}}:</h3>
+  <fieldset data-role="controlgroup">
+    {{#others}}
+      <input type="radio" name="{{type}}-radio" value="{{name}}"
+          id="{{type}}-{{index}}-ratio-selection"
+          {{#selected}}checked="checked"{{/selected}} />
+      <label for="{{type}}-{{index}}-ratio-selection">{{name}}</label>
+    {{/others}}
 
-          {{#others}}
-            <input type="radio" name="{{type}}-ratio" value="{{name}}"
-                id="{{type}}-{{index}}-ratio-selection"
-                {{#selected}}checked="checked"{{/selected}} />
-            <label for="{{type}}-{{index}}-ratio-selection">{{name}}</label>
-          {{/others}}
-
-          <input type="radio" name="{{type}}-ratio"
-              id="{{type}}-user-input-selection"
-              value="user-input"  />
-          <label for="{{type}}-user-input-selection">Other</label>
-
-    </fieldset>
+    <input type="radio" name="{{type}}-radio"
+        id="{{type}}-user-input-selection"
+        value="user-input"  />
+    <label for="{{type}}-user-input-selection">Other</label>
+  </fieldset>
+  <form data-ajax="false">
+    <input type="submit" class="get-me-home-change-location" value="Get Me Home!"/>
+  </form>
 </div>

@@ -1,8 +1,13 @@
 $(document).ready(function() {
 
-  $('#get-me-home-button').click(function(e){
+  $('#get-me-home-button, #get-me-home-icon').click(function(e){
     e.preventDefault();
     getMeHome();
+  });
+
+  $('.get-me-home-change-location').live('click', function(e){
+    e.preventDefault();
+    selectedOtherLocation();
   });
 
   $('#enter-address-button').click(function(e){
@@ -41,8 +46,24 @@ function getMeHome(){
   });
 }
 
+function selectedOtherLocation(){
+  $.mobile.pageLoading();
+
+  // TODO add error handling
+  $.ajax({
+    url: '/trip',
+    data: "from=" + $('input:radio[name=origin-radio]:checked').val() + "&to=" + $('input:radio[name=destination-radio]:checked').val(),
+    success: function(data) {
+      populateTripsPage(data.data);
+      $.mobile.pageLoading( true );
+      $.mobile.changePage($('#trips-page'));
+    }
+  });
+}
+
 function populateTripsPage(data){
+  // Note : Need to do .page or jQuery Mobile doesn't work
+  $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data)).page();
   $('#change-origin-page .content').html(Mustache.to_html($('#other-location-template').html(), data.origin)).page();
   $('#change-destination-page .content').html(Mustache.to_html($('#other-location-template').html(), data.destination)).page();
-  $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data)).page();
 }
