@@ -11,10 +11,11 @@
     <div class="character left-bubble"></div>
 
       <form id="address-form" data-ajax="false" class="triangle-border top">
-        <label for="address">Your address:</label>
-        <input name="address" type="text"/>
-
-        <input type="submit" id="enter-address-button" value="Save Address"/>
+        <div data-role="fieldcontain">
+          <label for="address">Your address:</label>
+          <input name="address" type="text"/>
+          <input type="submit" id="enter-address-button" value="Save Address"/>
+        </div>
       </form>
   </div>
 
@@ -54,6 +55,47 @@
 
 </div>
 
+<div data-role="page" id="change-origin-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
+<div data-role="page" id="change-destination-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
+<div data-role="page" id="about-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+    <h2>About</h2>
+    <p>TODO put some about text here</p>
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
 <script id="trip-template" type="text/html">
   {{{raw_trips_template}}}
+</script>
+
+<script id="other-location-template" type="text/html">
+  {{{raw_other_location_template}}}
 </script>

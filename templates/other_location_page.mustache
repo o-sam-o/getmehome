@@ -1,0 +1,18 @@
+<div data-role="fieldcontain">
+    <fieldset data-role="controlgroup">
+      <legend>Change {{type}}:</legend>
+
+          {{#others}}
+            <input type="radio" name="{{type}}-ratio" value="{{name}}"
+                id="{{type}}-{{index}}-ratio-selection"
+                {{#selected}}checked="checked"{{/selected}} />
+            <label for="{{type}}-{{index}}-ratio-selection">{{name}}</label>
+          {{/others}}
+
+          <input type="radio" name="{{type}}-ratio"
+              id="{{type}}-user-input-selection"
+              value="user-input"  />
+          <label for="{{type}}-user-input-selection">Other</label>
+
+    </fieldset>
+</div>

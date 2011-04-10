@@ -36,28 +36,30 @@ class SydneyTripPlannerSource
     results = []
     result_table.css('tbody tr').each do |row|
       results << {
-                tripNumber: row.at_css('td:nth-child(1)').content.strip,
-                depart: row.at_css('td:nth-child(2)').content.strip,
-                arrive: row.at_css('td:nth-child(3)').content.strip,
-                travelTime: row.at_css('td:nth-child(4)').content.strip,
-                transportType: transport_type(row.at_css('td:nth-child(5)')),
-                viewUrl: row.at_css('td:nth-child(6) a')['href']
+                tripNumber:     row.at_css('td:nth-child(1)').content.strip,
+                depart:         row.at_css('td:nth-child(2)').content.strip,
+                arrive:         row.at_css('td:nth-child(3)').content.strip,
+                travelTime:     row.at_css('td:nth-child(4)').content.strip,
+                transportType:  transport_type(row.at_css('td:nth-child(5)')),
+                viewUrl:        row.at_css('td:nth-child(6) a')['href']
       }
     end
 
     return {
       trips: results,
       origin: {
-        name: origin_name,
-        id:   origin,
-        others: origin_options || {origin_name => origin_name},
-        othersCount: origin_options.try(:size) || 1
+        name:         origin_name,
+        type:         'origin',
+        id:           origin,
+        others:       format_location_options(origin_options, origin_name),
+        othersCount:  origin_options.try(:size) || 1
       },
       destination: {
-        name: destination_name,
-        id:   destination,
-        others: destination_options || {destination_name => destination_name},
-        othersCount: destination_options.try(:size) || 1
+        name:         destination_name,
+        type:         'destination',
+        id:           destination,
+        others:       format_location_options(destination_options, destination_name),
+        othersCount:  destination_options.try(:size) || 1
       },
     }
   end
@@ -93,6 +95,18 @@ private
     doc.css("#{select_selector} option").inject({}) do |result, option| 
       result[option.content] = option['value'].blank? ? option.content : option['value']
       result
+    end
+  end
+
+  def format_location_options(options, selected)
+    options = {selected => selected} if options.blank?
+    options.enum_for(:each_with_index).collect do |values, index|
+      {
+        name: values[0],
+        id:   values[1],
+        index: index,
+        selected: values[0] == selected
+      }
     end
   end
 

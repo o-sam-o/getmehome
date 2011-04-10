@@ -2,6 +2,10 @@
   min-height: 310px;
 }
 
+#address-form div[data-role=fieldcontain] {
+  margin: 0!important;
+}
+
 #welcome-text {
   text-align: justify;
   margin: 0 0 1em;

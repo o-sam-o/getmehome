@@ -22,7 +22,7 @@ $(document).ready(function() {
 });
 
 function getMeHome(){
-  $.mobile.pageLoading();    
+  $.mobile.pageLoading();
   
   navigator.geolocation.getCurrentPosition(function(position){
     $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude + ' Long: ' + position.coords.longitude);
@@ -42,5 +42,7 @@ function getMeHome(){
 }
 
 function populateTripsPage(data){
-  $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data));
+  $('#change-origin-page .content').html(Mustache.to_html($('#other-location-template').html(), data.origin)).page();
+  $('#change-destination-page .content').html(Mustache.to_html($('#other-location-template').html(), data.destination)).page();
+  $('#trips-page .content').html(Mustache.to_html($('#trip-template').html(), data)).page();
 }
