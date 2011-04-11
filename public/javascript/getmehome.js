@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  //Flick to landing page if user has already seen welcome page
+  if ($.cookie('gmh-address')){
+    initAddressFields();
+    $.mobile.changePage('#landing-page', "none", false, true);
+  }
 
   $('#get-me-home-button, #get-me-home-icon').click(function(e){
     e.preventDefault();
@@ -20,7 +25,7 @@ $(document).ready(function() {
     }
 
     saveAddressToCookie(address);
-    $.mobile.changePage($('#landing-page'));
+    $.mobile.changePage('#landing-page', "slide", false, true);
   });
 });
 
@@ -37,7 +42,7 @@ function getMeHome(){
       success: function(data) {
         populateTripsPage(data.data);
         $.mobile.pageLoading( true );
-        $.mobile.changePage($('#trips-page'));
+        $.mobile.changePage('#trips-page', "slide", false, true);
       }
     });
 
@@ -54,7 +59,7 @@ function selectedOtherLocation(){
     success: function(data) {
       populateTripsPage(data.data);
       $.mobile.pageLoading( true );
-      $.mobile.changePage($('#trips-page'));
+      $.mobile.changePage('#trips-page', "slide", false, true);
     }
   });
 }
@@ -75,5 +80,10 @@ function updatePageContents(pageId, templateId, data){
 
 function saveAddressToCookie(address) {
   $.cookie('gmh-address', address, { path: '/', expires: 365 });
-  $('.home-address').html(address);
+  initAddressFields();
+}
+
+function initAddressFields(){
+  $('.home-address').html($.cookie('gmh-address'));
+  $('input[name=address]').val($.cookie('gmh-address'))
 }
