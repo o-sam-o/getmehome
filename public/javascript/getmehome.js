@@ -63,7 +63,7 @@ function getMeHome(){
 function selectedOtherLocation(){
   var origin = getOtherDestinationSelection('origin');
   var destination = getOtherDestinationSelection('destination');
-  saveAddressToCookie(origin);
+  saveAddressToCookie(destination);
   $.mobile.pageLoading();
 
   // TODO add error handling
