@@ -13,6 +13,6 @@ group :development do
   gem "heroku", "~> 1.19.1"
 end
 
-configure :production do
-  require 'newrelic_rpm'
+group :production do
+  gem "newrelic"
 end

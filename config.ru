@@ -16,4 +16,8 @@ require './views/layout'
 require './sydney_trip_planner_source'
 require './get_me_home'
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 run Sinatra::Application
