@@ -10,6 +10,17 @@ $(document).ready(function() {
     getMeHome();
   });
 
+  $.each(['origin', 'destination'], function(index, location) { 
+    $('input[name=' + location + '-radio]').live('change', function(e){
+        if ($('input[name=' + location + '-radio]:checked').val() == 'user-input'){
+          $('#other-' + location + '-field').show("slow");
+          $('input[name=other-' + location + ']').focus();
+        }else{
+          $('#other-' + location + '-field').hide("slow");
+        }
+    });
+  });
+
   $('.get-me-home-change-location').live('click', function(e){
     e.preventDefault();
     selectedOtherLocation();
@@ -50,12 +61,15 @@ function getMeHome(){
 }
 
 function selectedOtherLocation(){
+  var origin = getOtherDestinationSelection('origin');
+  var destination = getOtherDestinationSelection('destination');
+  saveAddressToCookie(origin);
   $.mobile.pageLoading();
-  saveAddressToCookie($('input:radio[name=destination-radio]:checked').val());
+
   // TODO add error handling
   $.ajax({
     url: '/trip',
-    data: "from=" + $('input:radio[name=origin-radio]:checked').val() + "&to=" + $('input:radio[name=destination-radio]:checked').val(),
+    data: "from=" + origin + "&to=" + destination,
     success: function(data) {
       populateTripsPage(data.data);
       $.mobile.pageLoading( true );
@@ -86,4 +100,18 @@ function saveAddressToCookie(address) {
 function initAddressFields(){
   $('.home-address').html($.cookie('gmh-address'));
   $('input[name=address]').val($.cookie('gmh-address'))
+}
+
+function getOtherDestinationSelection(location){
+  var selection = $('input:radio[name=' + location + '-radio]:checked').val();
+
+  if (selection == 'user-input'){
+    selection = $('input[name=other-' + location + ']').val();
+    if (selection == ''){
+      alert('Please provide an address');
+      throw 'missing address';
+    }
+  }
+
+  return selection;
 }
