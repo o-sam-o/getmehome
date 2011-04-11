@@ -12,3 +12,7 @@ group :development do
   gem "shotgun", "~> 0.9"
   gem "heroku", "~> 1.19.1"
 end
+
+configure :production do
+  require 'newrelic_rpm'
+end
