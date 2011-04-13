@@ -1,4 +1,10 @@
 $(document).ready(function() {
+
+  // Clear current lat and long on landing page
+  $('#langing-page').live('pagebeforeshow',function(event, ui){
+    $('current-lat-log-location').html('');
+  });  
+
   //Flick to landing page if user has already seen welcome page
   if ($.cookie('gmh-address')){
     initAddressFields();
@@ -44,7 +50,7 @@ function getMeHome(){
   $.mobile.pageLoading();
   
   navigator.geolocation.getCurrentPosition(function(position){
-    $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude + ' Long: ' + position.coords.longitude);
+    $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude.toFixed(2) + ' Long: ' + position.coords.longitude.toFixed(2));
 
     // TODO add error handling
     $.ajax({
