@@ -2,6 +2,10 @@
   min-height: 310px;
 }
 
+.content h3, .content h2 {
+  margin-top: 0px;
+}
+
 #address-form div[data-role=fieldcontain] {
   margin: 0!important;
 }

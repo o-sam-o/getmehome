@@ -11,7 +11,7 @@ $(document).ready(function() {
     $.mobile.changePage('#landing-page', "none", false, true);
   }
 
-  $('#get-me-home-button, #get-me-home-icon').click(function(e){
+  $('.get-me-home-geo').click(function(e){
     e.preventDefault();
     getMeHome();
   });
@@ -49,10 +49,10 @@ $(document).ready(function() {
 function getMeHome(){
   $.mobile.pageLoading();
   
+  // TODO add support for bad browser
   navigator.geolocation.getCurrentPosition(function(position){
     $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude.toFixed(2) + ' Long: ' + position.coords.longitude.toFixed(2));
 
-    // TODO add error handling
     $.ajax({
       url: '/trip',
       data: "from_lat=" + position.coords.latitude + "&from_long=" + position.coords.longitude + "&to=" + $.cookie('gmh-address'),
@@ -60,6 +60,10 @@ function getMeHome(){
         populateTripsPage(data.data);
         $.mobile.pageLoading( true );
         $.mobile.changePage('#trips-page', "slide", false, true);
+      },
+      error: function() { 
+        $.mobile.pageLoading( true );
+        $.mobile.changePage('#fail-page', "pop", false, true);
       }
     });
 
@@ -72,7 +76,6 @@ function selectedOtherLocation(){
   saveAddressToCookie(destination);
   $.mobile.pageLoading();
 
-  // TODO add error handling
   $.ajax({
     url: '/trip',
     data: "from=" + origin + "&to=" + destination,
@@ -80,7 +83,11 @@ function selectedOtherLocation(){
       populateTripsPage(data.data);
       $.mobile.pageLoading( true );
       $.mobile.changePage('#trips-page', "slide", false, true);
-    }
+    },
+    error: function() { 
+       $.mobile.pageLoading( true );
+       $.mobile.changePage('#fail-page', "pop", false, true);
+     }
   });
 }
 
