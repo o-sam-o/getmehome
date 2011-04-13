@@ -3,7 +3,7 @@
 }
 
 .content h3, .content h2 {
-  margin-top: 0px;
+  margin: 0;
 }
 
 #address-form div[data-role=fieldcontain] {

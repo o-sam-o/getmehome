@@ -32,6 +32,24 @@ $(document).ready(function() {
     selectedOtherLocation();
   });
 
+  $('#manual-address-button').click(function(e){
+    e.preventDefault();
+
+    var origin = $('input[name=manual-from-address]').val();
+    if (origin == ''){
+      alert('Please provide a from address');
+      return;
+    }
+
+    var destination = $('input[name=manual-to-address]').val();
+    if (destination == ''){
+      alert('Please provide a to address');
+      return;
+    }
+
+    lookupTimetableFor(origin, destination);
+  });
+
   $('#enter-address-button').click(function(e){
     e.preventDefault();
 
@@ -44,6 +62,7 @@ $(document).ready(function() {
     saveAddressToCookie(address);
     $.mobile.changePage('#landing-page', "slide", false, true);
   });
+
 });
 
 function getMeHome(){
@@ -73,6 +92,10 @@ function getMeHome(){
 function selectedOtherLocation(){
   var origin = getOtherDestinationSelection('origin');
   var destination = getOtherDestinationSelection('destination');
+  lookupTimetableFor(origin, destination);
+}
+
+function lookupTimetableFor(origin, destination){
   saveAddressToCookie(destination);
   $.mobile.pageLoading();
 
@@ -90,6 +113,7 @@ function selectedOtherLocation(){
      }
   });
 }
+
 
 function populateTripsPage(data){
   updatePageContents('#trips-page', '#trip-template', data);
@@ -112,7 +136,8 @@ function saveAddressToCookie(address) {
 
 function initAddressFields(){
   $('.home-address').html($.cookie('gmh-address'));
-  $('input[name=address]').val($.cookie('gmh-address'))
+  $('input[name=address]').val($.cookie('gmh-address'));
+  $('input[name=manual-to-address]').val($.cookie('gmh-address'));
 }
 
 function getOtherDestinationSelection(location){

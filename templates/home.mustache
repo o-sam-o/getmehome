@@ -81,6 +81,37 @@
 
 </div>
 
+<div data-role="page" id="address-form-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+
+  <h3>Enter Addresses:</h3>
+
+
+      <form id="manual-address-form" data-ajax="false">
+        <div data-role="fieldcontain">
+          <label for="manual-from-address">From:</label>
+          <input name="manual-from-address" type="text"/>
+        </div>
+
+        <div data-role="fieldcontain">
+          <label for="manual-to-address">To:</label>
+          <input name="manual-to-address" type="text"/>
+        </div>
+
+        <input type="submit" id="manual-address-button" value="Get Me Home!"/>
+      </form>
+
+  </div>
+
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
 <div data-role="page" id="fail-page">
 
   {{> page_header}}
@@ -112,6 +143,7 @@
   <div data-role="content" class="content">
     <h2>About</h2>
     <p>TODO put some about text here</p>
+
   </div>
 
   {{> page_footer}}
