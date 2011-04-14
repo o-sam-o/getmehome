@@ -136,6 +136,28 @@
 
 </div>
 
+<div data-role="page" id="no-geo-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+    <h2>Time for a new phone</h2>
+    <div id="welcome-text" class="triangle-border">
+      <p>
+        Doesn't look like your phone supports <a href="http://diveintohtml5.org/geolocation.html">HTML5 geolocation</a>.  
+        This website is designed to work on modern phones, e.g. iPhones or Androids.
+      </p>
+    </div>
+    <div class="character left-bubble"></div>
+
+    <a href="#" class="get-me-home-geo" data-role="button" data-direction="reverse" data-icon="refresh">Try Again</a>
+    <a href="#address-form-page" data-role="button" data-icon="gear">Enter Addresses</a>
+  </div>
+
+  {{> page_footer}}
+
+</div>
+
 <div data-role="page" id="about-page">
 
   {{> page_header}}

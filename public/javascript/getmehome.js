@@ -67,26 +67,35 @@ $(document).ready(function() {
 
 function getMeHome(){
   $.mobile.pageLoading();
-  
-  // TODO add support for bad browser
-  navigator.geolocation.getCurrentPosition(function(position){
-    $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude.toFixed(2) + ' Long: ' + position.coords.longitude.toFixed(2));
 
-    $.ajax({
-      url: '/trip',
-      data: "from_lat=" + position.coords.latitude + "&from_long=" + position.coords.longitude + "&to=" + $.cookie('gmh-address'),
-      success: function(data) {
-        populateTripsPage(data.data);
-        $.mobile.pageLoading( true );
-        $.mobile.changePage('#trips-page', "slide", false, true);
-      },
-      error: function() { 
-        $.mobile.pageLoading( true );
-        $.mobile.changePage('#fail-page', "pop", false, true);
-      }
-    });
+  if(geo_position_js.init()){
+    geo_position_js.getCurrentPosition(gotGeoLocation, geoFail, {enableHighAccuracy:true,options:5000});
+  }else {
+    geoFail();
+  }
+}
 
+function gotGeoLocation(position){
+  $('.current-lat-log-location').html('Your current location is Lat: ' + position.coords.latitude.toFixed(2) + ' Long: ' + position.coords.longitude.toFixed(2));
+
+  $.ajax({
+    url: '/trip',
+    data: "from_lat=" + position.coords.latitude + "&from_long=" + position.coords.longitude + "&to=" + $.cookie('gmh-address'),
+    success: function(data) {
+      populateTripsPage(data.data);
+      $.mobile.pageLoading( true );
+      $.mobile.changePage('#trips-page', "slide", false, true);
+    },
+    error: function() { 
+      $.mobile.pageLoading( true );
+      $.mobile.changePage('#fail-page', "pop", false, true);
+    }
   });
+}
+
+function geoFail(){
+  $.mobile.pageLoading( true );
+  $.mobile.changePage('#no-geo-page', "pop", false, true);
 }
 
 function selectedOtherLocation(){

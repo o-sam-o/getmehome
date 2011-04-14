@@ -71,6 +71,10 @@
   margin: 5px 0;
 }
 
+#fail-page h2, #no-geo-page h2 {
+  margin-bottom: 10px;
+}
+
 .ui-footer a {
   top:0.15em;
   float: right;
