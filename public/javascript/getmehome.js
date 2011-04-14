@@ -9,6 +9,8 @@ $(document).ready(function() {
   if ($.cookie('gmh-address')){
     initAddressFields();
     $.mobile.changePage('#landing-page', "none", false, true);
+  }else{
+    $.mobile.changePage('#welcome-page', "none", false, true);
   }
 
   $('.get-me-home-geo').click(function(e){

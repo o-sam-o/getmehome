@@ -1,13 +1,10 @@
 # Get Me Home
 
 ## TODO
- * Adress lookup failing
- * Comms with server failing
- * Phone doesnt support html5 location
- * About page
  * Map page
  * Improve view trip
  * Improve load time (Jammit)
+ * Improve server lookup time, cache address ids
 
 ## Copied
 Icons: 
