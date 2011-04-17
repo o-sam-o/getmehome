@@ -1,0 +1,24 @@
+<div id="welcome-page" data-role="page">
+
+  <div data-role="content" class="content">
+    <div id="welcome-text" class="triangle-border">
+      <p><strong>Welcome</strong> to Get Me Home,</p>
+      This is a simple mobile website that finds the quickest way for you to get home.
+      Enter your address below, and then with the help of GPS in your phone
+      I'll find out when your next bus, train or ferry leaves.
+    </div>
+
+    <div class="character left-bubble"></div>
+
+      <form id="address-form" data-ajax="false" class="triangle-border top">
+        <div data-role="fieldcontain">
+          <label for="address">Your address:</label>
+          <input name="address" type="text"/>
+          <input type="submit" id="enter-address-button" value="Save Address"/>
+        </div>
+      </form>
+  </div>
+
+  {{> page_footer}}
+
+</div>

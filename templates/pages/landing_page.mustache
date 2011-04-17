@@ -1,0 +1,21 @@
+<div id="landing-page" data-role="page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+    <div id="landing-text" class="triangle-border">
+      <p>So you want to go to <span class="home-address"></span>?</p>
+      <span class="current-lat-log-location"></span>
+    </div>
+    <div class="character left-bubble"></div>
+
+    <form data-ajax="false">
+      <input type="submit" id="get-me-home-button" class="get-me-home-geo" value="Get Me Home!"/>
+    </form>
+    
+    <a href="#welcome-page" data-role="button" data-direction="reverse" data-icon="back">Change Address</a> 
+  </div>
+
+  {{> page_footer}}
+
+</div>

@@ -12,18 +12,10 @@ end
 get '/trip' do
   content_type 'application/json'
   begin
-    origin = params[:from]
-    destination = params[:to]
-    if origin.blank?
-      # TODO error handling
-      origin = GoogleGeocoder.reverse_geocode([params[:from_lat], params[:from_long]]).full_address
-    end
-
     {
       status: "success",
-      data: SydneyTripPlannerSource.new.find_trips(origin, destination)
+      data: SydneyTripPlannerSource.new.find_trips(trip_origin, params[:to])
     }.to_json
-
   rescue TripSourceException => e
     halt 417, {
       status: "fail",
@@ -31,4 +23,8 @@ get '/trip' do
       code: e.code
     }.to_json
   end
+end
+
+def trip_origin
+    params[:from] || GoogleGeocoder.reverse_geocode([params[:from_lat], params[:from_long]]).full_address
 end

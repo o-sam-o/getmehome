@@ -1,0 +1,22 @@
+<div data-role="page" id="fail-page">
+
+  {{> page_header}}
+
+  <div data-role="content" class="content">
+    <h2>Oops, that didn't work</h2>
+    <div id="welcome-text" class="triangle-border">
+      <p>
+        Your either having network issues or your not in a supported area.  <br/>
+        We currently only support the <strong>Greater Sydney Metropolitan Area</strong>.
+        <a href="#about-page">Please see the about page for more information</a>
+      </p>
+    </div>
+    <div class="character left-bubble"></div>
+
+    <a href="#" class="get-me-home-geo" data-role="button" data-direction="reverse" data-icon="refresh">Try Again</a>
+    <a href="#address-form-page" data-role="button" data-icon="gear">Enter Addresses</a>
+  </div>
+
+  {{> page_footer}}
+
+</div>

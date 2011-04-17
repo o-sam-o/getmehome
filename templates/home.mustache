@@ -1,49 +1,14 @@
-<div id="welcome-page" data-role="page">
+{{> pages/welcome_page}}
 
-  <div data-role="content" class="content">
-    <div id="welcome-text" class="triangle-border">
-      <p><strong>Welcome</strong> to Get Me Home,</p>
-      This is a simple mobile website that finds the quickest way for you to get home.
-      Enter your address below, and then with the help of GPS in your phone
-      I'll find out when your next bus, train or ferry leaves.
-    </div>
+{{> pages/landing_page}}
 
-    <div class="character left-bubble"></div>
+{{> pages/address_form_page}}
 
-      <form id="address-form" data-ajax="false" class="triangle-border top">
-        <div data-role="fieldcontain">
-          <label for="address">Your address:</label>
-          <input name="address" type="text"/>
-          <input type="submit" id="enter-address-button" value="Save Address"/>
-        </div>
-      </form>
-  </div>
+{{> pages/fail_page}}
 
-  {{> page_footer}}
+{{> pages/no_geo_page}}
 
-</div>
-
-<div id="landing-page" data-role="page">
-
-  {{> page_header}}
-
-  <div data-role="content" class="content">
-    <div id="landing-text" class="triangle-border">
-      <p>So you want to go to <span class="home-address"></span>?</p>
-      <span class="current-lat-log-location"></span>
-    </div>
-    <div class="character left-bubble"></div>
-
-    <form data-ajax="false">
-      <input type="submit" id="get-me-home-button" class="get-me-home-geo" value="Get Me Home!"/>
-    </form>
-    
-    <a href="#welcome-page" data-role="button" data-direction="reverse" data-icon="back">Change Address</a> 
-  </div>
-
-  {{> page_footer}}
-
-</div>
+{{> pages/about_page}}
 
 <div data-role="page" id="trips-page">
 
@@ -81,155 +46,10 @@
 
 </div>
 
-<div data-role="page" id="address-form-page">
-
-  {{> page_header}}
-
-  <div data-role="content" class="content">
-
-  <h3>Enter Addresses:</h3>
-
-
-      <form id="manual-address-form" data-ajax="false">
-        <div data-role="fieldcontain">
-          <label for="manual-from-address">From:</label>
-          <input name="manual-from-address" type="text"/>
-        </div>
-
-        <div data-role="fieldcontain">
-          <label for="manual-to-address">To:</label>
-          <input name="manual-to-address" type="text"/>
-        </div>
-
-        <input type="submit" id="manual-address-button" value="Get Me Home!"/>
-      </form>
-
-  </div>
-
-  </div>
-
-  {{> page_footer}}
-
-</div>
-
-<div data-role="page" id="fail-page">
-
-  {{> page_header}}
-
-  <div data-role="content" class="content">
-    <h2>Oops, that didn't work</h2>
-    <div id="welcome-text" class="triangle-border">
-      <p>
-        Your either having network issues or your not in a supported area.  <br/>
-        We currently only support the <strong>Greater Sydney Metropolitan Area</strong>.
-        <a href="#about-page">Please see the about page for more information</a>
-      </p>
-    </div>
-    <div class="character left-bubble"></div>
-
-    <a href="#" class="get-me-home-geo" data-role="button" data-direction="reverse" data-icon="refresh">Try Again</a>
-    <a href="#address-form-page" data-role="button" data-icon="gear">Enter Addresses</a>
-  </div>
-
-  {{> page_footer}}
-
-</div>
-
-<div data-role="page" id="no-geo-page">
-
-  {{> page_header}}
-
-  <div data-role="content" class="content">
-    <h2>Time for a new phone</h2>
-    <div id="welcome-text" class="triangle-border">
-      <p>
-        Doesn't look like your phone supports <a href="http://diveintohtml5.org/geolocation.html">HTML5 geolocation</a>.  
-        This website is designed to work on modern phones, e.g. iPhones or Androids.
-      </p>
-    </div>
-    <div class="character left-bubble"></div>
-
-    <a href="#" class="get-me-home-geo" data-role="button" data-direction="reverse" data-icon="refresh">Try Again</a>
-    <a href="#address-form-page" data-role="button" data-icon="gear">Enter Addresses</a>
-  </div>
-
-  {{> page_footer}}
-
-</div>
-
-<div data-role="page" id="about-page">
-
-  {{> page_header}}
-
-  <div data-role="content" class="content">
-    <h2>About</h2>
-
-    <div data-role="collapsible">
-      <h3>What is this?</h3> 
-      <p>This is an experiment at building a mobile website with HTML5.  
-        It's goal is to make it very easy to look up ways to get home via public transport, ideally without having to type anything into your phone or even know your current address.
-      </p>
-      <p>
-         All travel information is currently sourced from <a href="http://www.131500.com.au/about-us">Transport Info 131500</a>.  
-         <a href="http://getmeho.me">Get Me Home</a> can be considered an optimised version of their website, designed specifically for
-          use with mobile phones.
-      </p>
-    </div>
-
-    <div data-role="collapsible">
-      <h3>Privacy</h3> 
-      <p><strong>Your privacy is paramount!</strong> Neither your current location or address are permanently stored on our servers.  
-         We do not sell your location information to any third parties.  However, in order for this service to operate
-         your information has to be forwarded to third parties.  Currently your current geo location is sent to <strong>Google</strong> in order
-         to get your current address.  Your current address and home address are then forwarded onto <a href="http://www.131500.com.au/about-us">Transport Info 131500</a>
-         in order to get journey information.
-      </p>
-    </div>
-
-    <div data-role="collapsible">
-      <h3>What areas do you support?</h3> 
-      <p><strong>Greater Sydney Metropolitan Area</strong></p>
-    </div>
-
-
-    <div data-role="collapsible">
-      <h3>Where do you get your journey information?</h3> 
-      <p><a href="http://www.131500.com.au/about-us">Transport Info 131500</a></p>
-    </div>
-
-    <div data-role="collapsible">
-      <h3>What technologies are used by this site?</h3> 
-      <p><a href="http://www.sinatrarb.com/">Sinatra</a>, <a href="http://jquerymobile.com/">jQuery Mobile</a>, <a href="http://mustache.github.com/">Mustache</a></p>
-    </div>
-
-
-    <div data-role="collapsible">
-      <h3>Who made this?</h3> 
-      <p><a href="http://o-sam-o.github.com/">Sam Cavenagh</a></p>
-    </div>
-
-    <div data-role="collapsible">
-      <h3>Credits</h3> 
-      <p>
-        Icons and images on this site are from:
-        <ul>
-          <li><a href="http://www.picol.org/">Picol</a></li>
-          <li><a href="http://iconlibrary.iconshock.com/icons/free-icon-sets-55-user-icons-part-1/">Iconshock</a></li>
-          <li><a href="http://glyphish.com/">Glyphish</a></li>
-        </ul>
-      </p>
-    </div>
-
-  </div>
-
-  {{> page_footer}}
-
-</div>
-
 <script id="trip-template" type="text/html">
   {{{raw_trips_template}}}
 </script>
 
 <script id="other-location-template" type="text/html">
-  {{{raw_other_location_template}}}
+  {{{raw_other_locations_template}}}
 </script>
